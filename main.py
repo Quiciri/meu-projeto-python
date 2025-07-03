@@ -19,4 +19,4 @@ def jogar():
             break
 
 jogar()
-
+#baralho
