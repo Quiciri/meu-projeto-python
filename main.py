@@ -8,15 +8,38 @@ class JogoAdivinhacao:
         self.root.geometry("400x380")
         self.root.resizable(False, False)
 
-        self.iniciar_jogo()
+        self.mostrar_boas_vindas()
+
+    def mostrar_boas_vindas(self):
+        # Tela de boas-vindas
+        self.frame_boas_vindas = tk.Frame(self.root)
+        self.frame_boas_vindas.pack(expand=True)
+
+        self.label_boas_vindas = tk.Label(
+            self.frame_boas_vindas,
+            text="🎉 Boas-vindas ao jogo de adivinhação do Gustavo e do João! 🎉",
+            font=("Arial", 14), wraplength=350, justify='center'
+        )
+        self.label_boas_vindas.pack(pady=40)
+
+        self.botao_comecar = tk.Button(
+            self.frame_boas_vindas,
+            text="🎮 Começar Jogo",
+            font=("Arial", 12),
+            command=self.iniciar_jogo
+        )
+        self.botao_comecar.pack()
 
     def iniciar_jogo(self):
+        # Remove tela de boas-vindas
+        self.frame_boas_vindas.destroy()
+
         # Lógica do jogo
         self.numero_secreto = random.randint(1, 20)
         self.tentativas = 0
         self.ultimo_palpite = None
 
-        # Widgets
+        # Widgets do jogo
         self.label_info = tk.Label(self.root, text="Adivinhe o número de 1 a 20!", font=("Arial", 14))
         self.label_info.pack(pady=10)
 
@@ -64,7 +87,7 @@ class JogoAdivinhacao:
             self.resultado.config(text=f"🎉 Parabéns! Você acertou em {self.tentativas} tentativas.")
             self.botao_tentar.config(state="disabled")
             self.entry_palpite.config(state="disabled")
-            self.botao_novamente.pack()  # Mostra botão "jogar novamente"
+            self.botao_novamente.pack()
 
         self.entry_palpite.delete(0, tk.END)
 
@@ -78,7 +101,7 @@ class JogoAdivinhacao:
         self.label_tentativas.destroy()
         self.botao_novamente.destroy()
 
-        # Reinicia tudo
+        # Reinicia o jogo
         self.iniciar_jogo()
 
 # Executa o jogo
